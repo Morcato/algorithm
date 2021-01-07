@@ -1,5 +1,7 @@
 package com.morcat.leetcode;
 
+import com.morcat.leetcode.structure.ListNode;
+
 /**
  *  Q141_环形链表
  *
@@ -59,11 +61,6 @@ public class Q141 {
             fastNode = fastNode.next.next;
         }
         return true;
-    }
-
-    class ListNode {
-        int val;
-        ListNode next;
     }
 
 }

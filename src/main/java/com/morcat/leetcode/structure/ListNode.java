@@ -1,0 +1,18 @@
+package com.morcat.leetcode.structure;
+
+/**
+ *  ListNode
+ *
+ *  @author shenzixing
+ *  @since 2021-01-07
+ */
+public class ListNode {
+
+    public int val;
+    public ListNode next;
+
+    public ListNode(int x) {
+        val = x;
+    }
+
+}
