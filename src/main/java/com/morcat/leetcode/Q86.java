@@ -27,6 +27,7 @@ public class Q86 {
      * 遍历完原链表后，我们只要将 left 链表尾节点指向 right链表的头节点即能完成对链表的分隔。
      */
     public ListNode partition_MySolution(ListNode head, int x) {
+
         ListNode leftNodedummyHead = new ListNode(-1);
         ListNode leftNodeTail = leftNodedummyHead;
         ListNode rightNodeDummyHead = new ListNode(-1);
