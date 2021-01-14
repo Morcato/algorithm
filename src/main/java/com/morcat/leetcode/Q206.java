@@ -3,7 +3,7 @@ package com.morcat.leetcode;
 import com.morcat.leetcode.structure.ListNode;
 
 /**
- *  Q169_多数元素
+ *  Q206_反转链表
  *
  *  反转一个单链表
  *

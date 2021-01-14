@@ -28,8 +28,8 @@ public class Q86 {
      */
     public ListNode partition_MySolution(ListNode head, int x) {
 
-        ListNode leftNodedummyHead = new ListNode(-1);
-        ListNode leftNodeTail = leftNodedummyHead;
+        ListNode leftNodeDummyHead = new ListNode(-1);
+        ListNode leftNodeTail = leftNodeDummyHead;
         ListNode rightNodeDummyHead = new ListNode(-1);
         ListNode rightNodeTail = rightNodeDummyHead;
         ListNode curr = head;
@@ -45,7 +45,7 @@ public class Q86 {
         }
         rightNodeTail.next = null;
         leftNodeTail.next = rightNodeDummyHead.next;
-        return leftNodedummyHead.next;
+        return leftNodeDummyHead.next;
 
     }
 
