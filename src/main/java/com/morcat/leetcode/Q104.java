@@ -56,7 +56,7 @@ public class Q104 {
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        int count =  0;
+        int count = 0;
         while (!queue.isEmpty()) {
             int size = queue.size();
             while (size > 0) {
