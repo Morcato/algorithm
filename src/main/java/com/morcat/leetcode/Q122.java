@@ -18,7 +18,7 @@ public class Q122 {
     /**
      * 递归解法
      */
-    class recursion {
+    class Recursion {
 
         public boolean hasPathSum(TreeNode root, int targetSum) {
             return hasSum(root, 0, targetSum);
