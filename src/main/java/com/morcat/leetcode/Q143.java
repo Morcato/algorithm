@@ -57,7 +57,6 @@ public class Q143 {
                 curr = curr.next;
             }
 
-
         }
 
     }
