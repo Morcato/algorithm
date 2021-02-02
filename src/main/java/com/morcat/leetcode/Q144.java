@@ -50,7 +50,6 @@ public class Q144 {
      */
     class PreOrderIteration {
         public List<Integer> preorderTraversal(TreeNode root) {
-
             List<Integer> result = new ArrayList();
             if (root == null) {
                 return result;
