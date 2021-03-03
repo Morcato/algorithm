@@ -59,7 +59,6 @@ public class Q438 {
             }
             int left = 0;
             int right = 0;
-            String temp = "";
             while (right < s.length()) {
                 sourceMap.put(s.charAt(right), sourceMap.getOrDefault(s.charAt(right), 0) + 1);
                 right++;
