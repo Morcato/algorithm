@@ -64,6 +64,7 @@ public class Q42 {
 
     /**
      * 双指针法
+     * 由双指针边走边计算,分别记录下左右两边的最大值.
      */
     class TwoPoints {
         public int trap(int[] height) {
