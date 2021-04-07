@@ -46,37 +46,85 @@ public class Q25 {
      * 递归解法
      * 结构化该问题,每次递归返回前k个反转链表,并在链表尾添加之后递归的数据
      */
-    public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null) {
-            return null;
-        }
-        if(!hasEnoughLength(head,k)){
-           return head;
-        }
-        ListNode reverseListNode = null;
-        ListNode curr = head;
-        int count = 0;
-        while (curr != null && count < k) {
-            ListNode temp = curr;
-            curr = curr.next;
-            temp.next = reverseListNode;
-            reverseListNode = temp;
-            count++;
+    class recursionSolution {
+        public ListNode reverseKGroup(ListNode head, int k) {
+            if (head == null) {
+                return null;
+            }
+            if (!hasEnoughLength(head, k)) {
+                return head;
+            }
+            ListNode reverseListNode = null;
+            ListNode curr = head;
+            int count = 0;
+            while (curr != null && count < k) {
+                ListNode temp = curr;
+                curr = curr.next;
+                temp.next = reverseListNode;
+                reverseListNode = temp;
+                count++;
+            }
+
+            head.next = reverseKGroup(curr, k);
+            return reverseListNode;
         }
 
-        head.next = reverseKGroup(curr, k);
-        return reverseListNode;
+        private Boolean hasEnoughLength(ListNode head, int k) {
+            while (k > 0) {
+                if (head == null) {
+                    return false;
+                }
+                head = head.next;
+                k--;
+            }
+            return true;
+        }
     }
 
-    private Boolean hasEnoughLength(ListNode head,int k){
-        while (k>0){
-            if(head == null){
-                return false;
+
+    /**
+     * 迭代解法
+     */
+    class IterationSolution {
+        public ListNode reverseKGroup(ListNode head, int k) {
+            ListNode dummy = new ListNode(-1, head);
+            ListNode curr = head;
+
+            ListNode prepre = dummy;
+            ListNode pre = head;
+            int count = 0;
+            while (curr != null) {
+                count++;
+                if (k == count) {
+                    ListNode temp = curr.next;
+                    curr.next = null;
+                    ListNode node = reverse(pre);
+
+                    prepre.next = node;
+                    pre.next = temp;
+                    prepre = pre;
+                    pre = temp;
+                    curr = temp;
+                    count = 0;
+                } else {
+                    curr = curr.next;
+                }
             }
-            head = head.next;
-            k--;
+            return dummy.next;
         }
-        return true;
+
+        private ListNode reverse(ListNode head) {
+            ListNode result = null;
+            ListNode curr = head;
+            while (curr != null) {
+                ListNode temp = curr;
+                curr = curr.next;
+                temp.next = result;
+                result = temp;
+            }
+            return result;
+        }
+
     }
 
 }
