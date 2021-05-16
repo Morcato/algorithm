@@ -63,4 +63,30 @@ public class Q11 {
         return max;
     }
 
+    /**
+     * 时隔1个月的第二种解法. 效率好像降低了
+     */
+    public int maxArea_2(int[] height) {
+        int result = 0;
+        int left = 0;
+        int right = height.length - 1;
+        while (left < right) {
+            int min = Math.min(height[left], height[right]);
+            result = Math.max(result, min * (right - left));
+            if (height[left] < height[right]) {
+                while (left < right && height[left + 1] < height[left]) {
+                    left++;
+                }
+                left++;
+            } else {
+                while (left < right && height[right - 1] < height[right]) {
+                    right--;
+                }
+                right--;
+            }
+
+        }
+        return result;
+    }
+
 }
