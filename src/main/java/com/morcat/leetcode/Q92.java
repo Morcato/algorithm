@@ -31,26 +31,26 @@ public class Q92 {
         ListNode nodeM = null;
         ListNode afterN = null;
         ListNode nodeN = null;
-        int count =1;
+        int count = 1;
         ListNode dummyHead = new ListNode(-1);
         dummyHead.next = head;
         ListNode curr = dummyHead;
-        while(curr.next!=null){
-            if (count==m){
+        while (curr.next != null) {
+            if (count == m) {
                 preM = curr;
                 nodeM = curr.next;
-            }else if(count==n){
+            } else if (count == n) {
                 nodeN = curr.next;
                 afterN = curr.next.next;
             }
             count++;
             curr = curr.next;
         }
-        if(nodeN !=null){
+        if (nodeN != null) {
             nodeN.next = null;
             ListNode reverseNode = null;
             ListNode curr2 = nodeM;
-            while(curr2!=null){
+            while (curr2 != null) {
                 ListNode temp = curr2;
                 curr2 = curr2.next;
                 temp.next = reverseNode;
@@ -60,6 +60,52 @@ public class Q92 {
             preM.next = nodeN;
         }
         return dummyHead.next;
+    }
+
+    /**
+     * 美团面试中出现原题的解法
+     */
+    class MeiTuanSolution {
+        public ListNode reverseBetween(ListNode head, int m, int n) {
+            ListNode dummy = new ListNode(-1);
+            dummy.next = head;
+            ListNode curr = head;
+            ListNode pre = dummy;
+            ListNode mNode = null;
+            ListNode preM = null;
+            ListNode nNode = null;
+            ListNode nextN = null;
+            while (curr != null) {
+                m--;
+                n--;
+                if (m <= 0 && mNode == null) {
+                    mNode = curr;
+                    preM = pre;
+                }
+                if (n <= 0 && nNode == null) {
+                    nNode = curr;
+                    nextN = curr.next;
+                }
+                pre = pre.next;
+                curr = curr.next;
+            }
+            nNode.next = null;
+            preM.next = reverse(mNode);
+            mNode.next = nextN;
+            return dummy.next;
+        }
+
+        private ListNode reverse(ListNode head) {
+            ListNode result = null;
+            ListNode curr = head;
+            while (curr != null) {
+                ListNode temp = curr;
+                curr = curr.next;
+                temp.next = result;
+                result = temp;
+            }
+            return result;
+        }
     }
 
 }
