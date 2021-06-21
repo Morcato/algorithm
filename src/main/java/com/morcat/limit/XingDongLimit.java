@@ -16,6 +16,7 @@ import java.util.Queue;
 public class XingDongLimit {
 
     List<InnerQueue> queues = new ArrayList<>();
+    private static OffsetDateTime NOW = OffsetDateTime.now();
 
     public XingDongLimit(List<Rule> rules) {
         for (Rule rule : rules) {
@@ -24,10 +25,14 @@ public class XingDongLimit {
     }
 
     public synchronized boolean limit() {
+        NOW = OffsetDateTime.now();
         System.out.println("收到请求");
         for (InnerQueue queue : queues) {
             if (!queue.limit()) {
                 System.out.println("限流啦!!!");
+                for (InnerQueue q : queues) {
+                    q.remove(NOW);
+                }
                 return false;
             }
         }
@@ -46,18 +51,21 @@ public class XingDongLimit {
             this.size = rule.size;
         }
 
+        public void remove(Object o) {
+            queue.remove(o);
+        }
+
         public Boolean limit() {
-            OffsetDateTime now = OffsetDateTime.now();
             if (queue.size() >= size) {
-                if (queue.peek().plusSeconds(second).isBefore(now)) {
+                if (queue.peek().plusSeconds(second).isBefore(NOW)) {
                     queue.poll();
-                    queue.offer(now);
+                    queue.offer(NOW);
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                queue.offer(now);
+                queue.offer(NOW);
                 return true;
             }
         }
