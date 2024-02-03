@@ -3,16 +3,15 @@ package com.morcat.leetcode;
 import com.morcat.leetcode.structure.ListNode;
 
 /**
- *
  * Q21_合并两个有序链表
- *
+ * <p>
  * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
- *
+ * <p>
  * 输入：1->2->4, 1->3->4
  * 输出：1->1->2->3->4->4
  *
- *  @author shenzixing
- *  @since 2021-01-07
+ * @author shenzixing
+ * @since 2021-01-07
  */
 public class Q21 {
 
@@ -75,5 +74,35 @@ public class Q21 {
         return prehead.next;
     }
 
+    /**
+     * 2024.2.3 重温该题,按照优秀迭代法完成! 点赞!
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        ListNode result = new ListNode();
+
+        ListNode index1 = list1;
+        ListNode index2 = list2;
+        ListNode resultIndex = result;
+
+        while (index1 != null && index2 != null) {
+            if (index1.val <= index2.val) {
+                resultIndex.next = index1;
+                index1 = index1.next;
+                resultIndex = resultIndex.next;
+            } else {
+                resultIndex.next = index2;
+                index2 = index2.next;
+                resultIndex = resultIndex.next;
+            }
+        }
+        if (index1 != null) {
+            resultIndex.next = index1;
+        }
+        if (index2 != null) {
+            resultIndex.next = index2;
+        }
+        return result.next;
+    }
 
 }
