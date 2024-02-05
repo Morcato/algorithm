@@ -111,4 +111,71 @@ public class Q234 {
         }
     }
 
+    /**
+     * 2024.2.6更新
+     * 新做这道题,比上面的快慢指针略逊一筹.
+     * 思路:先遍历一遍算长度,再遍历半个链表取一半的链表进行反转. 再将两个链表进行比较
+     */
+   private class ReverseSolution {
+        public boolean isPalindrome(ListNode head) {
+            int length = getLength(head);
+            if(length <=1){
+                return true;
+            }
+
+            boolean isEven = length % 2 == 0;
+            int half = length /2;
+
+            ListNode index = head;
+            ListNode result = null;
+
+            int count = 0;
+
+            // 反转半个链表
+            while(index != null){
+                count++;
+                if(count <= half){
+                    ListNode temp = index.next;
+                    index.next = result;
+                    result =index;
+                    index = temp;
+                }else{
+                    break;
+                }
+            }
+
+            if(isEven){
+                return isEqual(result,index);
+            }else{
+                return isEqual(result,index.next);
+            }
+
+        }
+
+        private boolean isEqual(ListNode nodeA,ListNode nodeB){
+            ListNode indexA = nodeA;
+            ListNode indexB = nodeB;
+            while(indexA != null && indexB != null){
+                if(indexA.val == indexB.val){
+                    indexA = indexA.next;
+                    indexB = indexB.next;
+                }else{
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private int getLength(ListNode head){
+            int num = 0;
+            ListNode index = head;
+            while(index != null){
+                num++;
+                index = index.next;
+            }
+            return num;
+        }
+
+    }
+
 }
