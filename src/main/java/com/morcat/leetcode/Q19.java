@@ -3,14 +3,14 @@ package com.morcat.leetcode;
 import com.morcat.leetcode.structure.ListNode;
 
 /**
- *  Q19_删除链表的倒数第 N 个结点
- *
- *  给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
- *
+ * Q19_删除链表的倒数第 N 个结点
+ * <p>
+ * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+ * <p>
  * 进阶：你能尝试使用一趟扫描实现吗？
  *
- *  @author shenzixing
- *  @since 2021-02-01
+ * @author shenzixing
+ * @since 2021-02-01
  */
 public class Q19 {
 
@@ -48,11 +48,10 @@ public class Q19 {
 
     /**
      * 双指针解法
-     *
+     * <p>
      * 采取双重遍历肯定是可以解决问题的，但题目要求我们一次遍历解决问题，那我们的思路得发散一下。
-     *
+     * <p>
      * 我们可以设想假设设定了双指针 p 和 q 的话，当 q 指向末尾的 NULL，p 与 q 之间相隔的元素个数为 n 时，那么删除掉 p 的下一个指针就完成了要求。
-     *
      */
     class TwoPoints {
 
@@ -70,6 +69,32 @@ public class Q19 {
             slowIndex.next = slowIndex.next.next;
             return dummyHead.next;
 
+        }
+
+        /**
+         * 2024.2.7 第二次做这道题直接想到快慢指针法,但是实现方式不如上面优雅.
+         */
+        public ListNode removeNthFromEndV2(ListNode head, int n) {
+            if (head.next == null) {
+                return null;
+            }
+
+            ListNode slow = new ListNode();
+            slow.next = head;
+            ListNode fast = head;
+            for (int i = 0; i < n; i++) {
+                fast = fast.next;
+            }
+            if (fast == null) {
+                return head.next;
+            }
+
+            while (fast != null) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            slow.next = slow.next.next;
+            return head;
         }
 
     }
