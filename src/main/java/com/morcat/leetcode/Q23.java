@@ -2,6 +2,10 @@ package com.morcat.leetcode;
 
 import com.morcat.leetcode.structure.ListNode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  *  Q23_合并K个升序链表
@@ -89,5 +93,66 @@ public class Q23 {
             return false;
         }
     }
+
+    /**
+     * 2024.2.8 重做此题想到的,递归解法更高效!
+     *
+     * 将K个链表转换成成多组两个链表,将两个链表进行合并,递归处理
+     *
+     */
+    class RecursionSolution {
+        public ListNode mergeKLists(ListNode[] lists) {
+            List<ListNode> array = Arrays.asList(lists);
+            return merge(array);
+        }
+
+        private ListNode merge(List<ListNode> lists) {
+            if (lists.isEmpty()){
+                return null;
+            }
+            if (lists.size() == 1) {
+                return lists.get(0);
+            }
+            List<ListNode> listA = new ArrayList();
+            List<ListNode> listB =new ArrayList();
+            for (int i = 0; i < lists.size(); i++) {
+                if (i < lists.size() / 2) {
+                    listA.add(lists.get(i));
+                } else {
+                    listB.add(lists.get(i));
+                }
+            }
+            return mergeTwoList(merge(listA), merge(listB));
+
+        }
+
+        private ListNode mergeTwoList(ListNode listA, ListNode listB) {
+            ListNode dummyHead = new ListNode();
+            ListNode resultIndex = dummyHead;
+            ListNode indexA = listA;
+            ListNode indexB = listB;
+
+            while (indexA != null && indexB != null) {
+                if (indexA.val < indexB.val) {
+                    resultIndex.next = indexA;
+                    resultIndex = resultIndex.next;
+                    indexA = indexA.next;
+                } else {
+                    resultIndex.next = indexB;
+                    resultIndex = resultIndex.next;
+                    indexB = indexB.next;
+                }
+            }
+            if (indexA != null) {
+                resultIndex.next = indexA;
+            }
+            if (indexB != null) {
+                resultIndex.next = indexB;
+            }
+            return dummyHead.next;
+
+        }
+    }
+
 
 }

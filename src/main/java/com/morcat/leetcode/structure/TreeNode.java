@@ -1,9 +1,8 @@
 package com.morcat.leetcode.structure;
 
 /**
- *
- *  @author shenzixing
- *  @since 2021-01-18
+ * @author shenzixing
+ * @since 2021-01-18
  */
 public class TreeNode {
 
@@ -23,5 +22,5 @@ public class TreeNode {
         this.left = left;
         this.right = right;
     }
-
+    
 }
