@@ -66,4 +66,51 @@ public class Q2 {
         return dummy.next;
     }
 
+    /**
+     * 更新于2024.2.7
+     */
+    public ListNode addTwoNumbers_2(ListNode l1, ListNode l2) {
+
+        ListNode result = new ListNode();
+        ListNode indexRes = result;
+
+        ListNode index1 = l1;
+        ListNode index2 = l2;
+
+        int temp = 0;
+
+        while(index1 != null || index2 != null){
+            int num1;
+            int num2;
+            if(index1 == null){
+                num1 = 0;
+                num2 = index2.val;
+                index2 = index2.next;
+            }else if(index2 == null){
+                num2 = 0;
+                num1 = index1.val;
+                index1 = index1.next;
+            }else{
+                num1 = index1.val;
+                num2 = index2.val;
+                index1 = index1.next;
+                index2 = index2.next;
+            }
+
+            int sum = num1 + num2 + temp;
+            int val = sum % 10;
+            temp = sum/10;
+
+            indexRes.next = new ListNode(val);
+            indexRes = indexRes.next;
+
+        }
+        if(temp == 1){
+            indexRes.next = new ListNode(1);
+        }
+
+        return result.next;
+
+    }
+
 }
