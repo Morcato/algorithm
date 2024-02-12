@@ -49,4 +49,23 @@ public class Q617 {
 
     }
 
+    /**
+     * 2024.2.12 新做该提的答案,比上述方案耗时更多,内存占用更多.但思路一致,都是dfs
+     */
+    public TreeNode mergeTreesV2(TreeNode root1, TreeNode root2) {
+        if(root1 == null && root2 == null){
+            return null;
+        }
+        int val = 0;
+        if(root1 != null){
+            val = val + root1.val;
+        }
+        if(root2 != null){
+            val = val + root2.val;
+        }
+        TreeNode left = mergeTrees(root1 == null?null:root1.left,root2 == null?null:root2.left);
+        TreeNode right = mergeTrees(root1==null?null:root1.right,root2 == null?null:root2.right);
+        return new TreeNode(val,left,right);
+    }
+
 }
