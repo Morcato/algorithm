@@ -72,6 +72,39 @@ public class Q98 {
         }
     }
 
+    /**
+     * 2024.2.14 重新做该题直接想到了递归解法,有进步!加油! (情人节快乐哈哈哈)
+     */
+    class MySolutionV2 {
+
+        Integer i = null;
+
+        public boolean isValidBST(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+
+            if (root.left != null) {
+                if (!isValidBST(root.left)) {
+                    return false;
+                }
+            }
+            if (i == null) {
+                i = root.val;
+            } else if (root.val <= i) {
+                return false;
+            }else{
+                i = root.val;
+            }
+            if (root.right != null) {
+                if (!isValidBST(root.right)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
 
     /**
      * 优秀解法,思路一致,使用了pre 在遍历中就开始计算.
