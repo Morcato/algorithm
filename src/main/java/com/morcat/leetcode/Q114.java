@@ -69,4 +69,43 @@ public class Q114 {
         }
     }
 
+    /**
+     * 2024.2.17 采用递归方式解决该问题
+     */
+    class MySolution {
+        public void flatten(TreeNode root) {
+            if (root == null) {
+                return;
+            }
+            if (root.left == null && root.right == null) {
+                return;
+            }
+            if (root.left != null) {
+                flatten(root.left);
+            }
+            if (root.right != null) {
+                flatten(root.right);
+            }
+
+            if (root.left != null) {
+                if (root.right != null) {
+                    TreeNode rightNode = root.right;
+                    root.right = root.left;
+                    addRight(root.right, rightNode);
+                } else {
+                    root.right = root.left;
+                }
+                root.left = null;
+            }
+
+        }
+
+        public void addRight(TreeNode node, TreeNode addNode) {
+            while (node.right != null) {
+                node = node.right;
+            }
+            node.right = addNode;
+        }
+    }
+
 }
