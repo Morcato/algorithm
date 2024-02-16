@@ -57,4 +57,50 @@ public class Q105 {
         }
     }
 
+    /**
+     * 2024.2.17 当年字节二面时未做出,如今用了3H终于解了出来!
+     * 需要注意的点是集散前序遍历的右子树第一个数组下标时需要用inRootIndex - inStart + 1 + preStart!
+     */
+    class MySolution {
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            return build(preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1);
+        }
+
+        public TreeNode build(int[] preorder, int[] inorder, int preStart, int preEnd, int inStart, int inEnd) {
+
+            TreeNode node = new TreeNode(preorder[preStart]);
+
+            int inRootIndex = getIndex(inorder, preorder[preStart]);
+
+            // 有左子树
+            if(inRootIndex > inStart){
+                int leftInStart = inStart;
+                int leftInEnd = inRootIndex - 1;
+                int leftPreStart = preStart + 1;
+                int leftPreEnd = preStart + inRootIndex - inStart ;
+                node.left = build(preorder, inorder, leftPreStart, leftPreEnd, leftInStart, leftInEnd);
+            }
+
+            // 有右子树
+            if(inRootIndex < inEnd){
+                int rightInStart = inRootIndex + 1 ;
+                int rightInEnd = inEnd;
+                int rightPreStart = inRootIndex - inStart + 1 + preStart;
+                int rightPreEnd = preEnd;
+                node.right = build(preorder, inorder, rightPreStart, rightPreEnd, rightInStart, rightInEnd);
+            }
+
+            return node;
+        }
+
+        public int getIndex(int[] order, int val) {
+            for (int i = 0; i < order.length; i++) {
+                if (order[i] == val) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+
 }
