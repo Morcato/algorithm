@@ -1,6 +1,8 @@
 package com.morcat.leetcode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  *  Q3_无重复字符的最长子串
@@ -63,6 +65,55 @@ public class Q3 {
         }
         return result;
 
+    }
+
+    /**
+     * 2024.2.19 采用滑动窗口方式解决该问题,但是处理的逻辑不太好.  解题时长:34min
+     *
+     * 可优化点:
+     * 1.没必要使用 s.toCharArray() 可以使用 s.charAt(xxx)
+     * 2.使用一个HashSet<Character>  代替每次都去判断是否有字符串相同.
+     */
+    class MySolution {
+        public int lengthOfLongestSubstring(String s) {
+
+            if("".equals(s)){
+                return 0;
+            }
+
+            int max = 1;
+
+            char[] cc = s.toCharArray();
+            int i = 0;
+            int j = 0;
+
+            while(j <= cc.length - 1){
+                if(hasDuplicate(cc,i,j)){
+                    i++;
+                    continue;
+                }
+
+                max = Math.max(max,j-i+1);
+                j++;
+            }
+            return max;
+        }
+
+        public Boolean hasDuplicate(char[] cc, int i, int j) {
+            if(i == j){
+                return false;
+            }
+            List<Character> list = new ArrayList();
+            while (i <= j) {
+                if (list.contains(cc[i])) {
+                    return true;
+                } else {
+                    list.add(cc[i]);
+                    i++;
+                }
+            }
+            return false;
+        }
     }
 
 }
