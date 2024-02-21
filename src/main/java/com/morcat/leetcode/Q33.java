@@ -65,4 +65,63 @@ public class Q33 {
         }
         return -1;
     }
+
+    /**
+     * 2024.2.22 第二次做该题想到了用递归去解决,方案也是类似将数组一分为二,有序的部分二分查找,无序的部分继续递归
+     */
+    class RecursionSolution {
+        public int search(int[] nums, int target) {
+            return search(nums,target,0,nums.length-1);
+        }
+
+        private int search(int[] nums, int target,int start,int end) {
+            if(start>=end){
+                if(nums[start] == target){
+                    return start;
+                }else{
+                    return -1;
+                }
+            }
+            int mid =  start + (end - start) / 2 ;
+            if(nums[mid] == target){
+                return mid;
+            }
+            if(nums[start] <= nums[mid]){
+                // 左半边二分查找
+                int value = binarySearch(nums,target,start,mid -1);
+                if(value != -1){
+                    return value;
+                }
+
+                // 右半边递归
+                return search(nums,target,mid+1,end);
+
+            }else{
+                // 左半边递归
+                int value =  search(nums,target,start,mid-1);
+                if(value != -1){
+                    return value;
+                }
+                // 右半边二分查找
+                return binarySearch(nums,target,mid+1,end);
+
+            }
+        }
+
+        private int binarySearch(int[] nums,int target,int start,int end){
+            while(start <= end){
+                int mid = start + ( end - start)/2;
+                int value = nums[mid];
+                if(value == target){
+                    return mid;
+                }else if(value < target){
+                    start = mid + 1;
+                }else{
+                    end = mid - 1;
+                }
+
+            }
+            return -1;
+        }
+    }
 }
