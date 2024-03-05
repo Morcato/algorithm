@@ -29,4 +29,20 @@ public class Q206 {
         }
     }
 
+    /**
+     * 递归法
+     * 参考:https://labuladong.online/algo/data-structure/reverse-linked-list-recursion/
+     */
+    class RecursionSolution {
+        public ListNode reverseList(ListNode head) {
+            if(head== null || head.next == null){
+                return head;
+            }
+            ListNode result = reverseList(head.next);
+            head.next.next = head;
+            head.next = null;
+            return result;
+        }
+    }
+
 }
