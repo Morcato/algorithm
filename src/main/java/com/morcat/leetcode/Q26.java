@@ -57,7 +57,6 @@ public class Q26 {
         int slow = 0;
         int fast = 1;
         while(fast<nums.length){
-            int val = nums[slow];
             if(nums[slow] == nums[fast]){
                 fast = fast + 1;
                 continue;
