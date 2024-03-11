@@ -90,4 +90,43 @@ public class Q438 {
         }
     }
 
+    /**
+     * 2023.3.12 重做该题,还是滑动窗口 不过逻辑比之前写的好
+     */
+    class MySolutionV2 {
+
+        public List<Integer> findAnagrams(String s, String p) {
+            List<Integer> result = new ArrayList<>();
+            Map<Character,Integer> windows = new HashMap<>();
+            Map<Character,Integer> need = new HashMap<>();
+            for(Character c:p.toCharArray()){
+                need.put(c, need.getOrDefault(c, 0)+1);
+            }
+            int left = 0;
+            int right = 0;
+            while(right < s.length()){
+                windows.put(s.charAt(right), windows.getOrDefault(s.charAt(right),0)+1);
+                right++;
+                while(right - left >= p.length()){
+                    if(contains(windows,need)){
+                        result.add(left);
+                    }
+                    windows.put(s.charAt(left), windows.getOrDefault(s.charAt(left),0)-1);
+                    left++;
+                }
+            }
+            return result;
+        }
+
+        public boolean contains(Map<Character,Integer> windows, Map<Character,Integer> need){
+            for(Character c:need.keySet()){
+                if(!need.get(c).equals(windows.getOrDefault(c,0))){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    }
+
 }
