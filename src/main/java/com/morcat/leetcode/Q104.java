@@ -30,6 +30,32 @@ import java.util.Queue;
 public class Q104 {
 
     /**
+     * 回溯算法
+     */
+    class TraverseSolution {
+        int res = 0;
+        int depth = 0;
+        public int maxDepth(TreeNode root) {
+            traverse(root);
+            return res;
+        }
+
+        public void traverse(TreeNode root){
+            if(root == null){
+                return;
+            }
+            depth++;
+            traverse(root.left);
+            traverse(root.right);
+
+            res = Math.max(res,depth);
+
+            depth--;
+
+        }
+    }
+
+    /**
      * 递归解法(其实是基于DFS的前序遍历)
      */
     public int maxDepth_recursion(TreeNode root) {
