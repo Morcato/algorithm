@@ -101,10 +101,10 @@ public class Q19 {
 
     /**
      * 2025.05.08 重新做此题,想到了递归的解决方式.感觉更加简洁,就是空间复杂度较高
-     *
+     * <p>
      * 递归解法:用递归的方式，从后往前数，找到倒数第n个节点，然后删除。
      */
-    class RecursionSolution  {
+    class RecursionSolution {
         public ListNode removeNthFromEnd(ListNode head, int n) {
             ListNode dummyHead = new ListNode(-1, head);
             ListNode pre = dummyHead;
